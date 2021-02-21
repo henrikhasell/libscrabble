@@ -21,5 +21,7 @@ add_executable(
 target_link_libraries(
     libscrabble_test
     gtest
+    pthread
     scrabble
+
 )

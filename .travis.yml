@@ -1,0 +1,19 @@
+language: c++
+sudo: required
+addons:
+  apt:
+    sources:
+    - ubuntu-toolchain-r-test
+    packages:
+      - libgtest-dev
+      - gcc-9
+      - g++-9
+env:
+  global:
+    - CC=gcc-9
+    - CXX=g++-9
+script:
+  - mkdir gtest-build && cd gtest-build && cmake /usr/src/gtest
+  - make && sudo cp libgtest{,_main}.a /usr/local/lib && cd ..
+  - mkdir build && cd build && cmake .. && make && cd ..
+  - ./build/libscrabble_test

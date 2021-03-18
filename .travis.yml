@@ -16,5 +16,5 @@ env:
 script:
   - mkdir gtest-build && cd gtest-build && cmake /usr/src/gtest
   - make && sudo cp libgtest{,_main}.a /usr/local/lib && cd ..
-  - mkdir build && cd build && cmake .. && make
-  - ./libscrabble_test
+  - mkdir build && cd build && cmake .. && make && cd ..
+  - ./build/libscrabble_test

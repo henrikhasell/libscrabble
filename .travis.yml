@@ -12,10 +12,9 @@ env:
   global:
     - CC=gcc-9
     - CXX=g++-9
+    - CXX_FLAGS="-I/usr/local/include -L/usr/local/lib"
 script:
   - mkdir gtest-build && cd gtest-build && cmake /usr/src/gtest
   - make && sudo cp libgtest{,_main}.a /usr/local/lib && cd ..
-  - export CXX_FLAGS="${CXX_FLAGS}: -I /usr/local/include"
-  - export CXX_FLAGS="${CXX_FLAGS}: -L /usr/local/lib"
   - mkdir build && cd build && cmake .. && make
   - ./libscrabble_test

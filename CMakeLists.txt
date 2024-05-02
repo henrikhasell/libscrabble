@@ -1,16 +1,13 @@
 cmake_minimum_required(VERSION 2.6)
 project("libscrabble")
 
-set(CMAKE_CXX_STANDARD 14)
+include(GNUInstallDirs) # Required for CMAKE_INSTALL_INCLUDEDIR
 
-include(GNUInstallDirs)
+set(CMAKE_CXX_STANDARD 14)
 
 add_library(
     scrabble
     SHARED
-    include/grid.hpp
-    include/solution.hpp
-    include/trie.hpp
     src/grid.cpp
     src/solution.cpp
     src/trie.cpp
@@ -34,14 +31,33 @@ target_link_libraries(
     scrabble
 )
 
+set(
+    SCRABBLE_PUBLIC_HEADERS
+    "${PROJECT_SOURCE_DIR}/include/grid.hpp"
+    "${PROJECT_SOURCE_DIR}/include/solution.hpp"
+    "${PROJECT_SOURCE_DIR}/include/trie.hpp"
+)
+
 set_target_properties(
     scrabble
     PROPERTIES PUBLIC_HEADER
-    "include/grid.hpp;include/solution.hpp;include/trie.hpp"
+    "${SCRABBLE_PUBLIC_HEADERS}"
 )
 
 install(
     TARGETS scrabble
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/scrabble
+)
+
+enable_testing()
+
+add_test(
+    NAME scrabble_test_suite
+    COMMAND libscrabble_test
+)
+
+file(
+    COPY ${CMAKE_CURRENT_SOURCE_DIR}/dictionary.txt
+    DESTINATION ${CMAKE_CURRENT_BINARY_DIR}
 )

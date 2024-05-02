@@ -11,14 +11,10 @@ struct Placement
     int score;
 
     bool operator<(const Placement& other) const {
-        if(score < other.score) return true;
-        if(score > other.score) return false;
-        if(word < other.word) return true;
-        if(word > other.word) return false;
-        if(x < other.x) return true;
-        if(x > other.x) return false;
-        if(y < other.y) return true;
-        if(y > other.y) return false;
+        if (score != other.score) return score < other.score;
+        if (word != other.word) return word < other.word;
+        if (x != other.x) return score < other.x;
+        if (y != other.y) return score < other.y;
         return horizontal < other.horizontal;
     }
 };

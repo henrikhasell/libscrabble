@@ -5,19 +5,11 @@
 #include "trie.hpp"
 #include "grid.hpp"
 
-struct Anchor {
-    size_t x;
-    size_t y;
+struct Anchor : public Grid::Coordinate {
     size_t x_length;
     size_t y_length;
     const Trie *x_trie;
     const Trie *y_trie;
-
-    bool operator<(const Anchor& other) const {
-        if(x < other.x) return true;
-        if(x > other.x) return false;
-        return y < other.y;
-    }
 };
 
 bool removeFromRack(std::string& rack, std::string& word, char c);

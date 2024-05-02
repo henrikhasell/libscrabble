@@ -95,33 +95,34 @@ void SolutionBuilder::addAnchor(size_t x, size_t y) {
 
 int SolutionBuilder::score(const Grid &grid, size_t x, size_t y, bool horizontal, bool recursive)
 {
-    std::map<char, int> charScores;
-    charScores['A'] = 1;
-    charScores['B'] = 4;
-    charScores['C'] = 4;
-    charScores['D'] = 2;
-    charScores['E'] = 1;
-    charScores['F'] = 4;
-    charScores['G'] = 3;
-    charScores['H'] = 3;
-    charScores['I'] = 1;
-    charScores['J'] = 10;
-    charScores['K'] = 5;
-    charScores['L'] = 2;
-    charScores['M'] = 4;
-    charScores['N'] = 2;
-    charScores['O'] = 1;
-    charScores['P'] = 4;
-    charScores['Q'] = 10;
-    charScores['R'] = 1;
-    charScores['S'] = 1;
-    charScores['T'] = 1;
-    charScores['U'] = 2;
-    charScores['V'] = 5;
-    charScores['W'] = 4;
-    charScores['X'] = 8;
-    charScores['Y'] = 3;
-    charScores['Z'] = 10;
+    static const std::map<char, int> charScores = {
+        {'A', 1},
+        {'B', 4},
+        {'C', 4},
+        {'D', 2},
+        {'E', 1},
+        {'F', 4},
+        {'G', 3},
+        {'H', 3},
+        {'I', 1},
+        {'J', 10},
+        {'K', 5},
+        {'L', 2},
+        {'M', 4},
+        {'N', 2},
+        {'O', 1},
+        {'P', 4},
+        {'Q', 10},
+        {'R', 1},
+        {'S', 1},
+        {'T', 1},
+        {'U', 2},
+        {'V', 5},
+        {'W', 4},
+        {'X', 8},
+        {'Y', 3},
+        {'Z', 10}
+    };
 
     int word_score = 0, adjacent_score = 0;
 
@@ -167,7 +168,7 @@ int SolutionBuilder::score(const Grid &grid, size_t x, size_t y, bool horizontal
 
         int tile_multiplier = 1;
 
-        if(tile->cross_check)
+        if(grid.isCrossCheck(x, y))
         {
             switch(tile->type)
             {
@@ -192,7 +193,7 @@ int SolutionBuilder::score(const Grid &grid, size_t x, size_t y, bool horizontal
 
         if(!tile->wild)
         {
-            word_score += tile_multiplier * charScores[toupper(tile->value)];
+            word_score += tile_multiplier * charScores.at(toupper(tile->value));
         }
 
         tile_count++;

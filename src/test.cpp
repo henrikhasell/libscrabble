@@ -23,11 +23,6 @@ struct GridTest : WWFTest {
         grid.insert(7, 7, true, "monkey");
         grid.insert(9, 5, false, "mokey");
         grid.insert(7, 8, false, "onkey");
-        for(auto x = 0; x < grid.w; x++) {
-            for(auto y = 0; y < grid.h; y++) {
-                grid.getTile(x, y)->cross_check = false;
-            }
-        }
     }
 };
 
@@ -39,11 +34,6 @@ struct SmallGridTest : WWFTest {
         grid.insert(3, 3, false, "alzarin");
         grid.insert(2, 9, true, "q");
         grid.insert(1, 10, true, "sice");
-        for(auto x = 0; x < grid.w; x++) {
-            for(auto y = 0; y < grid.h; y++) {
-                grid.getTile(x, y)->cross_check = false;
-            }
-        }
         for(auto y = 0; y < grid.h; y++) {
             for(auto x = 0; x < grid.w; x++) {
                 printf("%c ", grid.getTile(x, y)->value);

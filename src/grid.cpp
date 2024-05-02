@@ -187,6 +187,8 @@ void Grid::insert(size_t x, size_t y, bool horizontal, const std::string &word)
 
     size_t index = 0;
 
+    crossChecks.clear();
+
     while(*i < i_max && word.length() != index)
     {
         Tile *tile = getTile(x, y);
@@ -196,7 +198,7 @@ void Grid::insert(size_t x, size_t y, bool horizontal, const std::string &word)
             const char new_value = word[index++];
             tile->value = (char)tolower(new_value);
             tile->wild = new_value < 'a';
-            tile->cross_check = true;
+            crossChecks.insert({x, y});
         }
 
         i[0]++;
@@ -392,4 +394,8 @@ bool Grid::isAnchor(size_t x, size_t y) const {
            (y > 0 && getTile(x, y - 1)->value != ' ') ||
            (x < w - 1 && getTile(x + 1, y)->value != ' ') ||
            (y < h - 1 && getTile(x, y + 1)->value != ' ');
+}
+
+bool Grid::isCrossCheck(size_t x, size_t y) const {
+    return crossChecks.find({x, y}) != crossChecks.end();
 }

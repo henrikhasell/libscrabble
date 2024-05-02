@@ -94,15 +94,10 @@ TEST_F(SmallSolutionBuilderTest, PlacementCorrect)
 {
     std::set<Placement> placements = solutionBuilder.solve("jad");
     const Placement& placement = *placements.rbegin();
-    const Placement expected = {
-        .horizontal = false,
-        .word = "jade",
-        .x = 5,
-        .y = 7,
-        .score = 28
-    };
+    const Placement expected = {false, "jad", "jade", 5, 7, 28};
     EXPECT_EQ(true, grid.validate(trie, message));
     EXPECT_EQ(expected.word, placement.word);
+    EXPECT_EQ(expected.letters, placement.letters);
     EXPECT_EQ(expected.score, placement.score);
     EXPECT_EQ(expected.x, placement.x);
     EXPECT_EQ(expected.y, placement.y);

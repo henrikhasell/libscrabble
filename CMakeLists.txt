@@ -1,9 +1,17 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.5)
 project("libscrabble")
 
 include(GNUInstallDirs) # Required for CMAKE_INSTALL_INCLUDEDIR
+include(FetchContent) # Required to install GoogleTest
 
 set(CMAKE_CXX_STANDARD 14)
+
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
+)
+
+FetchContent_MakeAvailable(googletest)
 
 add_library(
     scrabble
@@ -21,13 +29,26 @@ add_executable(
 target_include_directories(
     scrabble
     PUBLIC
-    include
+    "${PROJECT_SOURCE_DIR}/include"
+)
+
+target_include_directories(
+    libscrabble_test
+    PUBLIC
+    "${PROJECT_SOURCE_DIR}/include"
+    "${GTEST_INCLUDE_DIR}"
+)
+
+target_link_directories(
+    libscrabble_test
+    PUBLIC
+    "${CMAKE_LIBRARY_OUTPUT_DIRECTORY}"
 )
 
 target_link_libraries(
     libscrabble_test
-    gtest
-    pthread
+    PUBLIC
+    GTest::gtest_main
     scrabble
 )
 
